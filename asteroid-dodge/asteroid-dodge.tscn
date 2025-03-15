@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwxc5d2sbaoby"]
+
+[ext_resource type="Script" uid="uid://qddjs7h86o85" path="res://asteroid-dodge/asteroid-dodge.gd" id="1_8s48k"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("asteroid_root")]
+script = ExtResource("1_8s48k")
+track_count = 5
+track_spacing = 250
+asteroid_count = 10
+asteroid_speed = 300
+asteroid_spawn_rate = 0.17
+asteroid_root = NodePath("Asteroids")
+
+[node name="Asteroids" type="Node2D" parent="."]
