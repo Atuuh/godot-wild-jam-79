@@ -25,7 +25,7 @@ var _time_in_target: float
 var _state: State
 
 func _init() -> void:
-    _state = State.IN_PROGRESS
+    _state = State.NOT_STARTED
     completed.connect(_debug_completed)
 
 func _debug_completed() -> void:
@@ -48,5 +48,12 @@ func _process(delta: float) -> void:
                 _state = State.COMPLETED
                 completed.emit()
     
+func start() -> void:
+    _state = State.STARTING
+    var tween := create_tween()
+    tween.tween_property($Needle, "rotation_degrees", min_rotation, 2.0)
+    await tween.finished
+    _state = State.IN_PROGRESS
+
 func _is_in_target() -> bool:
     return $Needle.rotation_degrees >= target_rotation - rotation_threshold && $Needle.rotation_degrees <= target_rotation + rotation_threshold
