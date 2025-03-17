@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://k30s7cc0odhm"]
+
+[ext_resource type="Script" uid="uid://dg7v8k3nvfsrt" path="res://test/test.gd" id="1_8a8pi"]
+[ext_resource type="PackedScene" uid="uid://cv74nitxi2ao3" path="res://gauge/gauge.tscn" id="1_syuel"]
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_8a8pi")
+
+[node name="Gauge" parent="." instance=ExtResource("1_syuel")]
+position = Vector2(514, 346)
