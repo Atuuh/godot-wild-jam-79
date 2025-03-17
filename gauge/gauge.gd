@@ -23,6 +23,7 @@ enum State {
 
 var _time_in_target: float
 var _state: State
+@onready var _needle: Sprite2D = $Needle
 
 func _init() -> void:
     _state = State.NOT_STARTED
@@ -34,10 +35,10 @@ func _debug_completed() -> void:
 func _process(delta: float) -> void:
     match _state:
         State.IN_PROGRESS:
-            var new_rotation: float = $Needle.rotation_degrees - decrement_speed * delta
+            var new_rotation: float = _needle.rotation_degrees - decrement_speed * delta
             if Input.is_action_just_pressed("move_right"):
                 new_rotation += action_increment_amount
-            $Needle.rotation_degrees = clampf(new_rotation, min_rotation, max_rotation)
+            _needle.rotation_degrees = clampf(new_rotation, min_rotation, max_rotation)
 
             if _is_in_target():
                 _time_in_target += delta
@@ -51,9 +52,9 @@ func _process(delta: float) -> void:
 func start() -> void:
     _state = State.STARTING
     var tween := create_tween()
-    tween.tween_property($Needle, "rotation_degrees", min_rotation, 2.0)
+    tween.tween_property(_needle, "rotation_degrees", min_rotation, 2.0)
     await tween.finished
     _state = State.IN_PROGRESS
 
 func _is_in_target() -> bool:
-    return $Needle.rotation_degrees >= target_rotation - rotation_threshold && $Needle.rotation_degrees <= target_rotation + rotation_threshold
+    return _needle.rotation_degrees >= target_rotation - rotation_threshold && _needle.rotation_degrees <= target_rotation + rotation_threshold
